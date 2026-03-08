@@ -2,10 +2,9 @@
 /// and rendered sequentially; consumers can subclass to add layout logic.
 open class Component {
     public private(set) var children: [Component] = []
+    public fileprivate(set) weak var parent: Component?
 
-    weak var parent: Component?
-
-    var root: Component { parent ?? self }
+    public var root: Component { parent ?? self }
 
     public init(children: [Component] = []) {
         for c in children {
