@@ -8,7 +8,7 @@ import Darwin
 
 /// Main runtime responsible for differential rendering and input routing.
 @MainActor
-public final class TUI: Component {
+public final class TUI: @MainActor Component, Sendable {
     private let terminal: Terminal
     private let scheduleRender: (@MainActor @Sendable @escaping () -> Void) -> Void
     private var focusedComponent: Component?
@@ -20,12 +20,12 @@ public final class TUI: Component {
     private var renderRequested = false
 
     /// Called when Ctrl+C is received. If unset, Ctrl+C will stop the terminal and call `exit(0)`.
-    public var onControlC: (@MainActor @Sendable () -> Void)?
+    public var onControlC: (@Sendable () -> Void)?
 
     /// When true (default), Ctrl+C is intercepted before forwarding input to the focused component.
     public var handlesControlC: Bool = true
 
-    public init(terminal: Terminal, renderScheduler: ((@MainActor @Sendable @escaping () -> Void) -> Void)? = nil) {
+    public init(terminal: Terminal, renderScheduler: ((@Sendable @escaping () -> Void) -> Void)? = nil) {
         self.terminal = terminal
         self.scheduleRender = renderScheduler ?? { handler in
             DispatchQueue.main.async(execute: handler)
@@ -53,11 +53,11 @@ public final class TUI: Component {
         self.terminal.stop()
     }
 
-    @MainActor override public func apply(theme: ThemePalette) {
-        self.theme = theme
+    override public func apply(theme: ThemePalette) {
+        // self.theme = theme
         self.children.forEach { $0.apply(theme: theme) }
         self.invalidate()
-        self.requestRender()
+        // self.requestRender()
     }
 
     public func requestRender() {

@@ -227,7 +227,7 @@ public final class Input: Component {
         return (visible, cursorDisplay)
     }
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         // Input currently has no theming knobs.
     }
 }

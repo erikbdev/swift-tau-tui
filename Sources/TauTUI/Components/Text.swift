@@ -107,7 +107,7 @@ public final class Text: Component {
         return AnsiWrapping.applyBackgroundToLine(line, width: VisibleWidth.measure(line), background: background.style)
     }
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         self.background = theme.textBackground
     }
 }

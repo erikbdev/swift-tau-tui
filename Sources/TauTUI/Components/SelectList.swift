@@ -138,7 +138,7 @@ public final class SelectList: Component {
         // No cached state to clear.
     }
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         self.theme = theme.selectList
     }
 }

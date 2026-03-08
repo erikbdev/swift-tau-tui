@@ -15,30 +15,9 @@ public final class Loader: Component {
             message: { AnsiStyling.dim($0) })
     }
 
-    private enum RenderTarget {
-        // Custom render notifier lets tests drive the loader without a TUI.
-        case closure(() -> Void)
-        // Render callback keeps only a weak reference to TUI to avoid leaks.
-        case tui(RenderCallback)
-    }
-
-    private final class RenderCallback: @unchecked Sendable {
-        weak var tui: TUI?
-
-        init(tui: TUI) {
-            self.tui = tui
-        }
-
-        func notify() {
-            Task { @MainActor [weak self] in
-                self?.tui?.requestRender()
-            }
-        }
-    }
-
     private static let frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
 
-    private let renderTarget: RenderTarget
+    // private let renderTarget: RenderTarget
     private var theme: LoaderTheme
     private var frameIndex = 0
     // Timer runs on the main queue; frames are cheap so main-queue delivery is fine.
@@ -49,22 +28,7 @@ public final class Loader: Component {
         didSet { self.updateText() }
     }
 
-    public init(tui: TUI, message: String = "Loading...", autoStart: Bool = true, theme: LoaderTheme = .default) {
-        self.renderTarget = .tui(RenderCallback(tui: tui))
-        self.message = message
-        self.theme = theme
-        super.init()
-        self.updateText()
-        if autoStart { self.start() }
-    }
-
-    public init(
-        message: String = "Loading...",
-        autoStart: Bool = true,
-        theme: LoaderTheme = .default,
-        renderNotifier: @escaping () -> Void)
-    {
-        self.renderTarget = .closure(renderNotifier)
+    public init(message: String = "Loading...", autoStart: Bool = true, theme: LoaderTheme = .default) {
         self.message = message
         self.theme = theme
         super.init()
@@ -107,11 +71,10 @@ public final class Loader: Component {
     }
 
     private func notifyRender() {
-        switch self.renderTarget {
-        case let .closure(handler):
-            handler()
-        case let .tui(callback):
-            callback.notify()
+        // Task { [weak _tui] in await _tui?.requestRender() }
+        let root = self.root as? TUI
+        Task { [root] in
+           await root?.requestRender()
         }
     }
 
@@ -124,7 +87,7 @@ public final class Loader: Component {
         self.textComponent.invalidate()
     }
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         self.theme = theme.loader
         self.textComponent.invalidate()
     }

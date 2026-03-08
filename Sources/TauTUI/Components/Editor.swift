@@ -466,7 +466,7 @@ public final class Editor: Component {
         // Stateless renderer; nothing cached.
     }
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         self.theme = theme.editor
         // If an autocomplete list is already visible, refresh its theme.
         self.autocompleteList?.theme = theme.selectList

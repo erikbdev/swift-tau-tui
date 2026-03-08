@@ -139,7 +139,7 @@ public final class TruncatedText: Component {
 
     public override func invalidate() {}
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         self.background = theme.truncatedBackground
     }
 }

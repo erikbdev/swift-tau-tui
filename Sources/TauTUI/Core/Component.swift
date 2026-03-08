@@ -3,15 +3,18 @@
 open class Component {
     public private(set) var children: [Component] = []
 
-    // TODO: refer to renderer to request new renders if component
-    // changes
-    // weak var renderer: any Renderer
+    weak var parent: Component?
+
+    var root: Component { parent ?? self }
 
     public init(children: [Component] = []) {
-        self.children = children
+        for c in children {
+           self.addChild(c) 
+        }
     }
 
     open func addChild(_ child: Component) {
+        child.parent = self
         self.children.append(child)
     }
 
@@ -30,7 +33,7 @@ open class Component {
         self.children.forEach { $0.invalidate() }
     }
 
-    @MainActor open func apply(theme: ThemePalette) {
+    open func apply(theme: ThemePalette) {
         self.children.forEach { $0.apply(theme: theme) }
     }
 

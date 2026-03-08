@@ -196,7 +196,7 @@ public final class MarkdownComponent: Component {
         self.invalidateCache()
     }
 
-    @MainActor public override func apply(theme: ThemePalette) {
+    public override func apply(theme: ThemePalette) {
         self.theme = theme.markdown
         self.invalidateCache()
     }

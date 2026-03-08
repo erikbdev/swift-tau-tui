@@ -66,7 +66,7 @@ struct ChatDemo {
             let userMessage = MarkdownComponent(text: trimmed, padding: .init(horizontal: 1, vertical: 0))
             vm.messages.addChild(userMessage)
 
-            let loader = Loader(tui: vm.tui, message: "Thinking...")
+            let loader = Loader(message: "Thinking...")
             vm.messages.addChild(loader)
 
             let responses = [

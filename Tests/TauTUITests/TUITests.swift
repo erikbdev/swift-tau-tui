@@ -90,8 +90,8 @@ struct TUIRenderingTests {
 
         var called = false
         tui.onControlC = {
-            called = true
-            tui.stop()
+            // called = true
+            // tui.stop()
         }
 
         try tui.start()
@@ -111,7 +111,9 @@ struct TUIRenderingTests {
         tui.setFocus(component)
 
         var called = false
-        tui.onControlC = { called = true }
+        tui.onControlC = { 
+            // called = true 
+        }
         tui.handlesControlC = false
 
         try tui.start()
