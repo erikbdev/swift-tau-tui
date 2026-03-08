@@ -14,7 +14,7 @@ public final class TruncatedText: Component {
         self.background = background
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         guard width > 0 else { return [] }
 
         var result: [String] = []
@@ -137,9 +137,9 @@ public final class TruncatedText: Component {
         return AnsiWrapping.applyBackgroundToLine(line, width: VisibleWidth.measure(line), background: background)
     }
 
-    public func invalidate() {}
+    public override func invalidate() {}
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         self.background = theme.truncatedBackground
     }
 }

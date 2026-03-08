@@ -46,12 +46,12 @@ public final class Image: Component {
             ?? .init(widthPx: 800, heightPx: 600)
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         self.cachedLines = nil
         self.cachedWidth = nil
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         if let cachedLines, self.cachedWidth == width {
             return cachedLines
         }

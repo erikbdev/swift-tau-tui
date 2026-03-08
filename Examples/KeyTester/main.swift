@@ -10,7 +10,7 @@ final class KeyLogger: Component {
         self.requestRender = requestRender
     }
 
-    func render(width: Int) -> [String] {
+    override func render(width: Int) -> [String] {
         var lines: [String] = []
         let banner = String(repeating: "=", count: width)
         lines.append(banner)
@@ -41,7 +41,7 @@ final class KeyLogger: Component {
         return lines
     }
 
-    func handle(input: TerminalInput) {
+    override func handle(input: TerminalInput) {
         switch input {
         case let .raw(data):
             self.append("RAW  | " + self.describe(data: data))

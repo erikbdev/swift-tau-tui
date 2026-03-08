@@ -11,7 +11,7 @@ public final class Spacer: Component {
         self.storage = max(0, lines)
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         guard self.storage > 0 else { return [] }
         return Array(repeating: "", count: self.storage)
     }

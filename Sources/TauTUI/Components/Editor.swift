@@ -69,7 +69,7 @@ public final class Editor: Component {
         self.autocompleteProvider = provider
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         self.lastWidth = width
         let horizontal = self.theme.borderColor(String(repeating: "─", count: width))
         var result: [String] = [horizontal]
@@ -81,7 +81,7 @@ public final class Editor: Component {
         return result
     }
 
-    public func handle(input: TerminalInput) {
+    public override func handle(input: TerminalInput) {
         switch input {
         case let .paste(text):
             self.handlePaste(text)
@@ -462,11 +462,11 @@ public final class Editor: Component {
         return copy
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         // Stateless renderer; nothing cached.
     }
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         self.theme = theme.editor
         // If an autocomplete list is already visible, refresh its theme.
         self.autocompleteList?.theme = theme.selectList

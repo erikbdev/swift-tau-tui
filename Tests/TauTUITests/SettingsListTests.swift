@@ -6,8 +6,8 @@ struct SettingsListTests {
     private final class Submenu: Component {
         private let done: (String?) -> Void
         init(done: @escaping (String?) -> Void) { self.done = done }
-        func render(width: Int) -> [String] { ["submenu"] }
-        func handle(input: TerminalInput) {
+        override func render(width: Int) -> [String] { ["submenu"] }
+        override func handle(input: TerminalInput) {
             if case .key(.enter, _) = input {
                 self.done("chosen")
             }

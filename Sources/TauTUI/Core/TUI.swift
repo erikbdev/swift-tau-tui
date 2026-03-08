@@ -8,7 +8,7 @@ import Darwin
 
 /// Main runtime responsible for differential rendering and input routing.
 @MainActor
-public final class TUI: Container {
+public final class TUI: Component {
     private let terminal: Terminal
     private let scheduleRender: (@MainActor @Sendable @escaping () -> Void) -> Void
     private var focusedComponent: Component?

@@ -6,7 +6,7 @@ struct BoxTests {
     private final class Dummy: Component {
         let lines: [String]
         init(_ lines: [String]) { self.lines = lines }
-        func render(width: Int) -> [String] { self.lines }
+        override func render(width: Int) -> [String] { self.lines }
     }
 
     @Test

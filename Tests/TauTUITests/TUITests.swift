@@ -6,15 +6,15 @@ import Testing
 private final class DummyComponent: Component {
     var lines: [String]
     init(lines: [String]) { self.lines = lines }
-    func render(width: Int) -> [String] { self.lines }
+    override func render(width: Int) -> [String] { self.lines }
 }
 
 private final class CapturingInputComponent: Component {
     private(set) var inputs: [TerminalInput] = []
 
-    func render(width: Int) -> [String] { [""] }
+    override func render(width: Int) -> [String] { [""] }
 
-    func handle(input: TerminalInput) {
+    override func handle(input: TerminalInput) {
         self.inputs.append(input)
     }
 }

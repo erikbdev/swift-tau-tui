@@ -4,7 +4,7 @@ import TauTUI
 @MainActor
 final class ChatViewModel {
     let tui: TUI
-    let messages = Container()
+    let messages = Component()
     let editor = Editor()
     let autocomplete: CombinedAutocompleteProvider
     private var isDark = true

@@ -53,6 +53,7 @@ public final class Loader: Component {
         self.renderTarget = .tui(RenderCallback(tui: tui))
         self.message = message
         self.theme = theme
+        super.init()
         self.updateText()
         if autoStart { self.start() }
     }
@@ -66,6 +67,7 @@ public final class Loader: Component {
         self.renderTarget = .closure(renderNotifier)
         self.message = message
         self.theme = theme
+        super.init()
         self.updateText()
         if autoStart { self.start() }
     }
@@ -94,7 +96,7 @@ public final class Loader: Component {
         self.message = newMessage
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         [""] + self.textComponent.render(width: width)
     }
 
@@ -118,11 +120,11 @@ public final class Loader: Component {
         self.textComponent.text = "\(self.theme.spinner(frame)) \(self.theme.message(self.message))"
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         self.textComponent.invalidate()
     }
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         self.theme = theme.loader
         self.textComponent.invalidate()
     }

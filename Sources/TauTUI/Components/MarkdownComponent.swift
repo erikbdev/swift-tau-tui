@@ -122,7 +122,7 @@ public final class MarkdownComponent: Component {
         self.defaultTextStyle = defaultTextStyle
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         if let cachedWidth, cachedWidth == width, let cachedLines { return cachedLines }
         guard width > 0 else { self.cache(width: width, lines: []); return [] }
 
@@ -192,11 +192,11 @@ public final class MarkdownComponent: Component {
         self.cachedLines = lines
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         self.invalidateCache()
     }
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         self.theme = theme.markdown
         self.invalidateCache()
     }

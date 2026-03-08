@@ -17,7 +17,7 @@ public final class Input: Component {
         self.cursor = min(self.cursor, self.value.count)
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         let prompt = "> "
         let available = width - prompt.count
         guard available > 0 else { return [prompt] }
@@ -40,7 +40,7 @@ public final class Input: Component {
         return [prompt + rendered]
     }
 
-    public func handle(input: TerminalInput) {
+    public override func handle(input: TerminalInput) {
         switch input {
         case let .key(key, modifiers):
             self.handleKey(key, modifiers: modifiers)
@@ -227,7 +227,7 @@ public final class Input: Component {
         return (visible, cursorDisplay)
     }
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         // Input currently has no theming knobs.
     }
 }

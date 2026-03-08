@@ -54,7 +54,7 @@ public final class Text: Component {
         self.background = background
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         if let cached = cachedLines, cachedWidth == width {
             return cached
         }
@@ -98,7 +98,7 @@ public final class Text: Component {
         self.cachedLines = nil
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         self.invalidateCache()
     }
 
@@ -107,7 +107,7 @@ public final class Text: Component {
         return AnsiWrapping.applyBackgroundToLine(line, width: VisibleWidth.measure(line), background: background.style)
     }
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         self.background = theme.textBackground
     }
 }

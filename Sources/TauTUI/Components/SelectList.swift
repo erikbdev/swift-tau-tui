@@ -62,7 +62,7 @@ public final class SelectList: Component {
         self.filterText = newValue
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         guard !self.filtered.isEmpty else {
             return [self.theme.noMatch("  No matching commands")]
         }
@@ -90,7 +90,7 @@ public final class SelectList: Component {
         return lines
     }
 
-    public func handle(input: TerminalInput) {
+    public override func handle(input: TerminalInput) {
         guard case let .key(key, _) = input else { return }
         switch key {
         case .arrowUp:
@@ -134,11 +134,11 @@ public final class SelectList: Component {
         onSelectionChange(self.filtered[self.selectedIndex])
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         // No cached state to clear.
     }
 
-    @MainActor public func apply(theme: ThemePalette) {
+    @MainActor public override func apply(theme: ThemePalette) {
         self.theme = theme.selectList
     }
 }

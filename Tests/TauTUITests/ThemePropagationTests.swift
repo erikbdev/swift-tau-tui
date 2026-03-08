@@ -3,8 +3,8 @@ import Testing
 
 private final class ThemeAwareComponent: Component {
     var applied: ThemePalette = .default
-    func render(width: Int) -> [String] { ["ok"] }
-    func apply(theme: ThemePalette) { self.applied = theme }
+    override func render(width: Int) -> [String] { ["ok"] }
+    override func apply(theme: ThemePalette) { self.applied = theme }
 }
 
 @Suite("Theme propagation")

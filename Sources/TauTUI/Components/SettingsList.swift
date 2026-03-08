@@ -6,7 +6,7 @@ public struct SettingItem {
     public let description: String?
     public var currentValue: String
     public let values: [String]?
-    public let submenu: ((String, @escaping (String?) -> Void) -> any Component)?
+    public let submenu: ((String, @escaping (String?) -> Void) -> Component)?
 
     public init(
         id: String,
@@ -14,7 +14,7 @@ public struct SettingItem {
         description: String? = nil,
         currentValue: String,
         values: [String]? = nil,
-        submenu: ((String, @escaping (String?) -> Void) -> any Component)? = nil)
+        submenu: ((String, @escaping (String?) -> Void) -> Component)? = nil)
     {
         self.id = id
         self.label = label
@@ -62,7 +62,7 @@ public final class SettingsList: Component {
     private let onCancel: () -> Void
 
     private var selectedIndex: Int = 0
-    private var submenuComponent: (any Component)?
+    private var submenuComponent: Component?
     private var submenuItemIndex: Int?
 
     public init(
@@ -84,18 +84,18 @@ public final class SettingsList: Component {
         self.items[idx].currentValue = newValue
     }
 
-    public func invalidate() {
+    public override func invalidate() {
         self.submenuComponent?.invalidate()
     }
 
-    public func render(width: Int) -> [String] {
+    public override func render(width: Int) -> [String] {
         if let submenuComponent {
             return submenuComponent.render(width: width)
         }
         return self.renderMainList(width: width)
     }
 
-    public func handle(input: TerminalInput) {
+    public override func handle(input: TerminalInput) {
         if let submenuComponent {
             submenuComponent.handle(input: input)
             return
