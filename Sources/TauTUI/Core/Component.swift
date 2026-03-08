@@ -69,4 +69,8 @@ open class Container: Component {
     open func render(width: Int) -> [String] {
         self.children.flatMap { $0.render(width: width) }
     }
+
+    open func handle(input: TerminalInput) {
+        /* Default: ignore input */
+    }
 }

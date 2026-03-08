@@ -108,8 +108,8 @@ public final class Input: Component {
     private func backspace() {
         guard self.cursor > 0 else { return }
         let index = self.value.index(self.value.startIndex, offsetBy: self.cursor - 1)
-        self.value.remove(at: index)
         self.cursor -= 1
+        self.value.remove(at: index)
     }
 
     private func deleteForward() {
